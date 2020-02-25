@@ -93,16 +93,14 @@ if (isset($_GET['code']) && !empty($_GET['code'])) {
     }
 
     $user_info = json_decode($response['body']);
-    
+
     //echo '<pre>'.print_r($user_info->email, true).'</pre>';
     //exit();
 
     //$user_id = username_exists( $user_info->user_login );
 
     if (!email_exists($user_info->email)) {
-
         wp_die('There is no account on this website associated with your M Media account.');
-
     } else {
 
         // Already Registered... Log the User In
