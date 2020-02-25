@@ -36,6 +36,6 @@ if (!defined('WPOSSO_FILE')) {
 // Require the main plugin clas
 require_once WPOSSO_FILE.'/library/class-wposso-client.php';
 
-add_action('admin_menu', [new WPOSSO_Client(), 'plugin_init']);
+add_action('admin_init', [new WPOSSO_Client(), 'plugin_init']);
 register_activation_hook(__FILE__, [new WPOSSO_Client(), 'setup']);
 register_activation_hook(__FILE__, [new WPOSSO_Client(), 'upgrade']);
