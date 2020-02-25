@@ -85,6 +85,10 @@ class WPOSSO_Client
      */
     public function plugin_init()
     {
+        if (!is_plugin_active('mmedia/MMedia.php') and current_user_can('activate_plugins')) {
+            deactivate_plugins(plugin_basename(__FILE__));
+            wp_die('"M Media" is a required dependant plugin for "Log in with M Media" to work.');
+        }
     }
 
     /**
