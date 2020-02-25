@@ -66,7 +66,7 @@ class WPOSSO_Client
     {
 
         // Require parent plugin
-        if (!is_plugin_active('mmedia/mmedia.php') and current_user_can('activate_plugins')) {
+        if (!is_plugin_active('mmedia/MMedia.php') and current_user_can('activate_plugins')) {
             // Stop activation redirect and show error
             wp_die('This plugin requires the M Media to be installed and active. <br><a href="'.admin_url('plugins.php').'">&laquo; Return to Plugins</a>');
         }
