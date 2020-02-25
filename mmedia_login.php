@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Log in with M Media
  * Plugin URI: https://mmediagroup.fr
- * Version: 1.0.1
+ * Version: 1.0.2
  * Description: Provides Simple Single Sign On integration with M Media. Based off of the original work by http://dash10.digital
  * Author: M Media
  * Author URI: https://mmediagroup.fr
@@ -19,7 +19,7 @@
 defined('ABSPATH') or die('No script kiddies please!');
 
 if (!class_exists('Smashing_Updater')) {
-    include_once plugin_dir_path(__FILE__).'updater.php';
+    include_once plugins_url('mmedia/updater.php');
 }
 $updater = new Smashing_Updater(__FILE__);
 $updater->set_username('M-Media-Group');
