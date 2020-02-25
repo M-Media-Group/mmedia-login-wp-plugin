@@ -18,6 +18,11 @@
  */
 defined('ABSPATH') or die('No script kiddies please!');
 
+if ( !is_plugin_active( 'mmedia/MMedia.php' ) ) {
+	deactivate_plugins( plugin_basename(__FILE__) );
+	wp_die('"M Media" is a required dependant plugin for "Log in with M Media" to work.');
+}
+
 if (!class_exists('Smashing_Updater')) {
     include_once plugins_url('mmedia/updater.php');
 }
