@@ -53,53 +53,57 @@ class WPOSSO_Admin
         $options = get_option($this->option_name); ?>
 
         <div class="wrap">
-			<div class="align-center-mmedia" style="text-align: center;padding-top:15px;">
-        <img src="<?php echo plugins_url('mmedia/images/m.svg'); ?>" height="75">
-        <p style="font-weight: 500;">We make websites and handle your marketing.</p>
-    </div>
-    <div class="card">
-        <h3>Step 1</h3>
-        <p>Obtain a Client ID and Secret from M Media.</p>
-        <p>Your redirect URL is <strong><?php echo site_url('?auth=sso'); ?></strong></p>
-    </div>
-    <div class="card">
-        <h3>Step 2</h3>
-        <p>Input your Client ID and Secret.</p>    <form method="post" action="options.php">
-                        <?php settings_fields('wposso_options'); ?>
-                        <table class="form-table">
-                            <tr valign="top">
-                                <th scope="row">Client ID</th>
-                                <td>
-                                    <input type="text" name="<?php echo $this->option_name ?>[client_id]" min="10"
-                                           value="<?php echo $options['client_id']; ?>"/>
-                                </td>
-                            </tr>
+	    <div class="align-center-mmedia" style="text-align: center;padding-top:15px;">
+		<img src="<?php echo plugins_url('mmedia/images/m.svg'); ?>" height="75">
+		<p style="font-weight: 500;">We make websites and handle your marketing.</p>
+	    </div>
+	    <div class="card">
+		<h3>Step 1</h3>
+		<p>Obtain a Client ID and Secret from M Media.</p>
+		<p>Your redirect URL is <strong><?php echo site_url('?auth=sso'); ?></strong></p>
+	    </div>
+	    <div class="card">
+		<h3>Step 2</h3>
+		<p>Input your Client ID and Secret.</p>
+		<form method="post" action="options.php">
+		    <?php settings_fields('wposso_options'); ?>
+			<table class="form-table">
+			    <tr valign="top">
+				<th scope="row">Client ID</th>
+				<td>
+				    <input type="text" name="<?php echo $this->option_name ?>[client_id]" min="10" value="<?php echo $options['client_id']; ?>" />
+				</td>
+			    </tr>
 
-                            <tr valign="top">
-                                <th scope="row">Client Secret</th>
-                                <td>
-                                    <input type="text" name="<?php echo $this->option_name ?>[client_secret]" min="10"
-                                           value="<?php echo $options['client_secret']; ?>"/>
-                                </td>
-                            </tr>
+			    <tr valign="top">
+				<th scope="row">Client Secret</th>
+				<td>
+				    <input type="text" name="<?php echo $this->option_name ?>[client_secret]" min="10" value="<?php echo $options['client_secret']; ?>" />
+				</td>
+			    </tr>
 
-                           <!--  <tr valign="top">
-                                <th scope="row">Redirect to the dashboard after signing in</th>
-                                <td>
-                                    <input type="checkbox"
-                                           name="<?php echo $this->option_name ?>[redirect_to_dashboard]"
-                                           value="1" <?php echo $options['redirect_to_dashboard'] == 1 ? 'checked="checked"' : ''; ?> />
-                                </td>
-                            </tr> -->
-                        </table>
+			    <!--  <tr valign="top">
+					<th scope="row">Redirect to the dashboard after signing in</th>
+					<td>
+					    <input type="checkbox"
+						   name="<?php echo $this->option_name ?>[redirect_to_dashboard]"
+						   value="1" <?php echo $options['redirect_to_dashboard'] == 1 ? 'checked="checked"' : ''; ?> />
+					</td>
+				    </tr> -->
+			</table>
 
-                        <p class="submit">
-                            <input type="submit" class="button button-mmedia" value="<?php _e('Save Changes')?>"/>
-                        </p>
+			<p class="submit">
+			    <input type="submit" class="button button-mmedia" value="<?php _e('Save Changes')?>" />
+			</p>
 
-                </form>
-    </div>
-        </div>
+		</form>
+	    </div>
+	    <div class="card">
+		<h3>Need help?</h3>
+		<p>Read the M Media plugin guide</p>
+		<a class="button" href="https://blog.mmediagroup.fr/post/log-in-with-m-media-wordpress-plugin/?utm_source=wordpress&utm_medium=plugin&utm_campaign=<?php echo get_site_url(); ?>&utm_content=tab_login_with_mmedia">Read the plugin guide</a>
+	    </div>
+	</div>
 		<?php
     }
 
