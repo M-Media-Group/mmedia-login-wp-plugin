@@ -1,7 +1,5 @@
 <?php
 /**
- * Main Plugin Filters
+ * Main Plugin Filters.
  */
-
-defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
-
+defined('ABSPATH') or die('No script kiddies please!');

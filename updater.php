@@ -2,7 +2,6 @@
 
 class Smashing_Updater
 {
-
     private $file;
 
     private $plugin;
@@ -21,10 +20,9 @@ class Smashing_Updater
 
     public function __construct($file)
     {
-
         $this->file = $file;
 
-        add_action('admin_init', array($this, 'set_plugin_properties'));
+        add_action('admin_init', [$this, 'set_plugin_properties']);
 
         return $this;
     }
@@ -77,14 +75,13 @@ class Smashing_Updater
 
     public function initialize()
     {
-        add_filter('pre_set_site_transient_update_plugins', array($this, 'modify_transient'), 10, 1);
-        add_filter('plugins_api', array($this, 'plugin_popup'), 10, 3);
-        add_filter('upgrader_post_install', array($this, 'after_install'), 10, 3);
+        add_filter('pre_set_site_transient_update_plugins', [$this, 'modify_transient'], 10, 1);
+        add_filter('plugins_api', [$this, 'plugin_popup'], 10, 3);
+        add_filter('upgrader_post_install', [$this, 'after_install'], 10, 3);
     }
 
     public function modify_transient($transient)
     {
-
         if (property_exists($transient, 'checked')) {
             // Check if transient has a checked property
 
@@ -96,17 +93,16 @@ class Smashing_Updater
                 $out_of_date = version_compare($this->github_response['tag_name'], $checked[$this->basename], 'gt'); // Check if we're out of date
 
                 if ($out_of_date) {
-
                     $new_files = $this->github_response['zipball_url']; // Get the ZIP
 
                     $slug = current(explode('/', $this->basename)); // Create valid slug
 
-                    $plugin = array( // setup our plugin info
-                        'url' => $this->plugin["PluginURI"],
-                        'slug' => $slug,
-                        'package' => $new_files,
+                    $plugin = [ // setup our plugin info
+                        'url'         => $this->plugin['PluginURI'],
+                        'slug'        => $slug,
+                        'package'     => $new_files,
                         'new_version' => $this->github_response['tag_name'],
-                    );
+                    ];
 
                     $transient->response[$this->basename] = (object) $plugin; // Return it in response
                 }
@@ -118,7 +114,6 @@ class Smashing_Updater
 
     public function plugin_popup($result, $action, $args)
     {
-
         if (!empty($args->slug)) {
             // If there is a slug
 
@@ -128,32 +123,32 @@ class Smashing_Updater
                 $this->get_repository_info(); // Get our repo info
 
                 // Set it to an array
-                $plugin = array(
-                    'name' => $this->plugin["Name"],
+                $plugin = [
+                    'name' => $this->plugin['Name'],
                     'slug' => $this->basename,
                     //'requires' => '3.3',
                     //'tested' => '4.4.1',
                     'rating' => '100.0',
                     //'num_ratings' => '10823',
                     //'downloaded' => '14249',
-                    'added' => '2019-12-12',
-                    'version' => $this->github_response['tag_name'],
-                    'author' => $this->plugin["AuthorName"],
-                    'author_profile' => $this->plugin["AuthorURI"],
-                    'last_updated' => $this->github_response['published_at'],
-                    'homepage' => $this->plugin["PluginURI"],
-                    'short_description' => $this->plugin["Description"],
-                    'sections' => array(
-                        'Description' => $this->plugin["Description"],
-                        'Updates' => $this->github_response['body'],
-                    ),
+                    'added'             => '2019-12-12',
+                    'version'           => $this->github_response['tag_name'],
+                    'author'            => $this->plugin['AuthorName'],
+                    'author_profile'    => $this->plugin['AuthorURI'],
+                    'last_updated'      => $this->github_response['published_at'],
+                    'homepage'          => $this->plugin['PluginURI'],
+                    'short_description' => $this->plugin['Description'],
+                    'sections'          => [
+                        'Description' => $this->plugin['Description'],
+                        'Updates'     => $this->github_response['body'],
+                    ],
                     'download_link' => $this->github_response['zipball_url'],
-                );
+                ];
 
                 return (object) $plugin; // Return the data
             }
-
         }
+
         return $result; // Otherwise return default
     }
 

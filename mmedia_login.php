@@ -6,7 +6,7 @@
  * Description: Provides Simple Single Sign On integration with M Media. Based off of the original work by http://dash10.digital
  * Author: M Media
  * Author URI: https://mmediagroup.fr
- * License: GPL2
+ * License: GPL2.
  *
  * This program is GLP but; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,11 +16,10 @@
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of.
  */
-
 defined('ABSPATH') or die('No script kiddies please!');
 
 if (!class_exists('Smashing_Updater')) {
-    include_once plugin_dir_path(__FILE__) . 'updater.php';
+    include_once plugin_dir_path(__FILE__).'updater.php';
 }
 $updater = new Smashing_Updater(__FILE__);
 $updater->set_username('M-Media-Group');
@@ -35,8 +34,8 @@ if (!defined('WPOSSO_FILE')) {
 }
 
 // Require the main plugin clas
-require_once WPOSSO_FILE . '/library/class-wposso-client.php';
+require_once WPOSSO_FILE.'/library/class-wposso-client.php';
 
-add_action('admin_menu', array(new WPOSSO_Client, 'plugin_init'));
-register_activation_hook(__FILE__, array(new WPOSSO_Client, 'setup'));
-register_activation_hook(__FILE__, array(new WPOSSO_Client, 'upgrade'));
+add_action('admin_menu', [new WPOSSO_Client(), 'plugin_init']);
+register_activation_hook(__FILE__, [new WPOSSO_Client(), 'setup']);
+register_activation_hook(__FILE__, [new WPOSSO_Client(), 'upgrade']);
