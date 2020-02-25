@@ -93,41 +93,16 @@ if (isset($_GET['code']) && !empty($_GET['code'])) {
     }
 
     $user_info = json_decode($response['body']);
-    //print_r($response);
-    echo '<pre>'.print_r($user_info->email, true).'</pre>';
+    
+    //echo '<pre>'.print_r($user_info->email, true).'</pre>';
     //exit();
 
     //$user_id = username_exists( $user_info->user_login );
 
     if (!email_exists($user_info->email)) {
 
-// 		// Does not have an account... Register and then log the user in
-        // 		$random_password = wp_generate_password( $length = 12, $include_standard_special_chars = false );
-        // 		$user_id         = wp_create_user( $user_info->user_login, $random_password, $user_info->user_email );
+        wp_die('There is no account on this website associated with your M Media account.');
 
-        // 		if ( isset( $user_info->first_name ) ) {
-        // 			update_user_meta( $user_id, 'first_name', $user_info->first_name );
-        // 		}
-
-        // 		if ( isset( $user_info->last_name ) ) {
-        // 			update_user_meta( $user_id, 'last_name', $user_info->last_name );
-        // 		}
-
-        // 		// Trigger new user created action so that there can be modifications to what happens after the user is created.
-        // 		// This can be used to collect other information about the user.
-        // 		do_action( 'wpoc_user_created', $user_info, 1 );
-
-        // 		wp_clear_auth_cookie();
-        // 		wp_set_current_user( $user_id );
-        // 		wp_set_auth_cookie( $user_id );
-
-        // 		if ( is_user_logged_in() ) {
-        // 			wp_safe_redirect( $user_redirect );
-        // 			exit;
-        // 		}
-
-        echo 'No account';
-        exit;
     } else {
 
         // Already Registered... Log the User In
