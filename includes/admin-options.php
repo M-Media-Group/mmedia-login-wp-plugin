@@ -100,7 +100,7 @@ class WPOSSO_Admin
 	    </div>
 	    <div class="card">
 		<h3>Need help?</h3>
-		<p>Read the M Media plugin guide</p>
+		<p>Read the M Media plugin guide on our Help Center.</p>
 		<a class="button" href="https://blog.mmediagroup.fr/post/log-in-with-m-media-wordpress-plugin/?utm_source=wordpress&utm_medium=plugin&utm_campaign=<?php echo get_site_url(); ?>&utm_content=tab_login_with_mmedia">Read the plugin guide</a>
 	    </div>
 	</div>
