@@ -54,7 +54,7 @@ class WPOSSO_Admin
 
         <div class="wrap">
 			<div class="align-center-mmedia" style="text-align: center;padding-top:15px;">
-        <img src="https://mmediagroup.fr/images/logo.png" height="75">
+        <img src="<?php echo plugins_url('mmedia/images/m.svg'); ?>" height="75">
         <p style="font-weight: 500;">We make websites and handle your marketing.</p>
     </div>
     <div class="card">
