@@ -101,36 +101,36 @@ if (isset($_GET['code']) && !empty($_GET['code'])) {
     //$user_id = username_exists( $user_info->user_login );
 
     if (!email_exists($user_info->email)) {
-        if($options['allow_registration']) {
-        // Does not have an account... Register and then log the user in
- 		$random_password = wp_generate_password( $length = 12, $include_standard_special_chars = false );
- 		$user_id         = wp_insert_user([
+        if ($options['allow_registration']) {
+            // Does not have an account... Register and then log the user in
+            $random_password = wp_generate_password($length = 12, $include_standard_special_chars = false);
+            $user_id         = wp_insert_user([
     'user_pass'             => $random_password,   //(string) The plain-text user password.
     'user_login'            => '',   //(string) The user's login username.
     'user_email'            => $user_email,   //(string) The user email address.
-    'role'                  => 'subscriber',   //(string) User's role. 
+    'role'                  => 'subscriber',   //(string) User's role.
         ]);
 
- 		if ( isset( $user_info->name ) ) {
- 			update_user_meta( $user_id, 'first_name', $user_info->name );
- 		}
+            if (isset($user_info->name)) {
+                update_user_meta($user_id, 'first_name', $user_info->name);
+            }
 
- 		if ( isset( $user_info->surname ) ) {
- 			update_user_meta( $user_id, 'last_name', $user_info->surname );
- 		}
+            if (isset($user_info->surname)) {
+                update_user_meta($user_id, 'last_name', $user_info->surname);
+            }
 
- 		// Trigger new user created action so that there can be modifications to what happens after the user is created.
- 		// This can be used to collect other information about the user.
- 		do_action( 'wpoc_user_created', $user_info, 1 );
+            // Trigger new user created action so that there can be modifications to what happens after the user is created.
+            // This can be used to collect other information about the user.
+            do_action('wpoc_user_created', $user_info, 1);
 
- 		wp_clear_auth_cookie();
- 		wp_set_current_user( $user_id );
- 		wp_set_auth_cookie( $user_id );
+            wp_clear_auth_cookie();
+            wp_set_current_user($user_id);
+            wp_set_auth_cookie($user_id);
 
- 		if ( is_user_logged_in() ) {
- 			wp_safe_redirect( $user_redirect );
- 			exit;
- 		}
+            if (is_user_logged_in()) {
+                wp_safe_redirect($user_redirect);
+                exit;
+            }
         } else {
             wp_die('There is no account on this website associated with your M Media account.');
         }
