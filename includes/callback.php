@@ -106,8 +106,9 @@ if (isset($_GET['code']) && !empty($_GET['code'])) {
             $random_password = wp_generate_password($length = 12, $include_standard_special_chars = false);
             $user_id         = wp_insert_user([
     'user_pass'             => $random_password,   //(string) The plain-text user password.
-    'user_login'            => '',   //(string) The user's login username.
-    'user_email'            => $user_email,   //(string) The user email address.
+    'user_login'            => $user_info->email,   //(string) The user's login username.
+    'user_email'            => $user_info->email,   //(string) The user email address.
+				'show_admin_bar_front'  => '',   //(string|bool) Whether to display the Admin Bar for the user on the site's front end. Default true.
     'role'                  => 'subscriber',   //(string) User's role.
         ]);
 
