@@ -81,6 +81,14 @@ class WPOSSO_Admin
 				    <input type="text" name="<?php echo $this->option_name ?>[client_secret]" min="10" value="<?php echo $options['client_secret']; ?>" />
 				</td>
 			    </tr>
+				<tr valign="top">
+					<th scope="row">Allow new M Media users to register on this site</th>
+					<td>
+					    <input type="checkbox"
+						   name="<?php echo $this->option_name ?>[allow_registration]"
+						   value="1" <?php echo $options['allow_registration'] == 1 ? 'checked="checked"' : ''; ?> />
+					</td>
+				    </tr>
 
 			    <!--  <tr valign="top">
 					<th scope="row">Redirect to the dashboard after signing in</th>
