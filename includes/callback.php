@@ -108,7 +108,7 @@ if (isset($_GET['code']) && !empty($_GET['code'])) {
     'user_pass'             => $random_password,   //(string) The plain-text user password.
     'user_login'            => $user_info->email,   //(string) The user's login username.
     'user_email'            => $user_info->email,   //(string) The user email address.
-                'show_admin_bar_front'  => '',   //(string|bool) Whether to display the Admin Bar for the user on the site's front end. Default true.
+                'show_admin_bar_front'  => 'false',   //(string|bool) Whether to display the Admin Bar for the user on the site's front end. Default true.
     'role'                  => 'subscriber',   //(string) User's role.
         ]);
 
