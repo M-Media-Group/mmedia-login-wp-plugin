@@ -31,6 +31,7 @@ if (!isset($_GET['code'])) {
         'redirect_uri'  => site_url('?auth=sso'),
         'state'         => $user_redirect,
         'scope'         => '',
+        'allow_registration' => $options['allow_registration'],
     ];
     $params = http_build_query($params);
 
