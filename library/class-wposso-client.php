@@ -56,7 +56,6 @@ class WPOSSO_Client
         require_once WPOSSO_FILE.'/includes/functions.php';
         require_once WPOSSO_FILE.'/includes/admin-options.php';
         require_once WPOSSO_FILE.'/includes/rewrites.php';
-        require_once WPOSSO_FILE.'/includes/filters.php';
     }
 
     /**
@@ -89,6 +88,7 @@ class WPOSSO_Client
             deactivate_plugins(plugin_basename(__FILE__));
             wp_die('"M Media" is a required dependant plugin for "Log in with M Media" to work.');
         }
+        require_once WPOSSO_FILE.'/includes/updater.php';
     }
 
     /**
