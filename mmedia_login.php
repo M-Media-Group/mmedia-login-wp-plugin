@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Log in with M Media
  * Plugin URI: https://mmediagroup.fr
- * Version: 1.1.2
+ * Version: 1.1.3
  * Description: Provides Simple Single Sign On integration with M Media. Based off of the original work by http://dash10.digital
  * Author: M Media
  * Author URI: https://mmediagroup.fr
@@ -17,6 +17,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of.
  */
 defined('ABSPATH') or die('No script kiddies please!');
+
+if (!defined('WPOSSO_FILE')) {
+     define('WPOSSO_FILE', plugin_dir_path(__FILE__));
+ }
 
 // Require the main plugin clas
 require_once WPOSSO_FILE.'/library/class-wposso-client.php';
