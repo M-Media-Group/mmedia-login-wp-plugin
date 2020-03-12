@@ -19,8 +19,8 @@
 defined('ABSPATH') or die('No script kiddies please!');
 
 if (!defined('WPOSSO_FILE')) {
-     define('WPOSSO_FILE', plugin_dir_path(__FILE__));
- }
+    define('WPOSSO_FILE', plugin_dir_path(__FILE__));
+}
 
 // Require the main plugin clas
 require_once WPOSSO_FILE.'/library/class-wposso-client.php';
