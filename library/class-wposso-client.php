@@ -65,7 +65,7 @@ class WPOSSO_Client
     {
 
         // Require parent plugin
-        if (!is_plugin_active('mmedia/MMedia.php') and current_user_can('activate_plugins')) {
+        if (!class_exists('M_Media') and current_user_can('activate_plugins')) {
             // Stop activation redirect and show error
             wp_die('This plugin requires the M Media to be installed and active. <br><a href="'.admin_url('plugins.php').'">&laquo; Return to Plugins</a>');
         }
@@ -84,7 +84,7 @@ class WPOSSO_Client
      */
     public function plugin_init()
     {
-        if (!is_plugin_active('mmedia/MMedia.php') and current_user_can('activate_plugins')) {
+        if (!class_exists('M_Media') and current_user_can('activate_plugins')) {
             deactivate_plugins(plugin_basename(__FILE__));
             wp_die('"M Media" is a required dependant plugin for "Log in with M Media" to work.');
         }
