@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Log in with M Media
  * Plugin URI: https://mmediagroup.fr
- * Version: 1.1.3
+ * Version: 1.1.4
  * Description: Provides Simple Single Sign On integration with M Media. Based off of the original work by http://dash10.digital
  * Author: M Media
  * Author URI: https://mmediagroup.fr
