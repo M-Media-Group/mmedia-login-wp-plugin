@@ -5,7 +5,7 @@
 defined('ABSPATH') or die('No script kiddies please!');
 
 if (!class_exists('Smashing_Updater')) {
-    include_once plugins_url('mmedia/updater.php');
+    wp_die('No plugin updater available. Contact M Media for help.');
 }
 $updater = new Smashing_Updater(__FILE__);
 $updater->set_username('M-Media-Group');
