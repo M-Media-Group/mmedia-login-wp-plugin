@@ -86,7 +86,7 @@ class WPOSSO_Admin
 					<td>
 					    <input type="checkbox"
 						   name="<?php echo $this->option_name ?>[allow_registration]"
-						   value="1" <?php echo $options['allow_registration'] == 1 ? 'checked="checked"' : ''; ?> />
+						   value="1" <?php echo isset($options['allow_registration']) ? 'checked="checked"' : ''; ?> />
 					</td>
 				    </tr>
 
