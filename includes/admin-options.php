@@ -36,11 +36,17 @@ class WPOSSO_Admin
         //             $this,
         //             'options_do_page'
         //         ) );
-        add_submenu_page('mmedia_main_menu', 'Log in with M Media',
-            'Log in with M Media', 'manage_options', 'm_media_login', [
+        add_submenu_page(
+            'mmedia_main_menu',
+            'Log in with M Media',
+            'Log in with M Media',
+            'manage_options',
+            'm_media_login',
+            [
                 $this,
                 'options_do_page',
-            ]);
+            ]
+        );
     }
 
     /**
