@@ -115,9 +115,7 @@ function mmedia_get_files()
 {
     $mmedia_user = new M_WPOSSO_User();
     $files = $mmedia_user->get_user_files();
-    $options = get_option('wposso_options');
-
-    ?>
+    $options = get_option('wposso_options'); ?>
     <div>
     <br>
     <p>or</p>
@@ -125,8 +123,7 @@ function mmedia_get_files()
     <?php
 $i = 0;
     foreach ($files as $file) {
-        // mmedia_insert_attachment_from_url($file->url);
-        ?>
+        // mmedia_insert_attachment_from_url($file->url); ?>
 
 <div class="card align-center-mmedia">
     <img src="<?php echo $file->url; ?>" height="145">
@@ -137,9 +134,7 @@ $i = 0;
   <?php if (++$i == 25) {
             break;
         }
-
-    }
-    ?>
+    } ?>
     <a class="button button-mmedia" target="_BLANK" href="<?php echo str_replace('/oauth/', '/files/create', $options['server_url']); ?>"><?php _e('Upload more files to M Media')?></a>
 </div>
 
@@ -213,7 +208,6 @@ add_action('wp_ajax_mmedia_insert_attachment_from_url', 'mmedia_insert_attachmen
  */
 function mmedia_insert_attachment_from_url($file = null)
 {
-
     if (!$file) {
         $file = new stdClass();
         $file->url = $_POST['file-url'];
@@ -274,5 +268,4 @@ function mmedia_insert_attachment_from_url($file = null)
     echo $attach_id;
 
     wp_die();
-
 }

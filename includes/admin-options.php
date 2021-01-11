@@ -38,17 +38,29 @@ class WPOSSO_Admin
         //             'options_do_page'
         //         ) );
 
-        add_submenu_page('mmedia_main_menu', 'Notifications',
-            'Notifications', 'manage_options', 'm_media_notifications', [
+        add_submenu_page(
+            'mmedia_main_menu',
+            'Notifications',
+            'Notifications',
+            'manage_options',
+            'm_media_notifications',
+            [
                 $this,
                 'options_do_notifications_page',
-            ]);
+            ]
+        );
 
-        add_submenu_page('mmedia_main_menu', 'Log in settings',
-            'Log in settings', 'manage_options', 'm_media_login', [
+        add_submenu_page(
+            'mmedia_main_menu',
+            'Log in settings',
+            'Log in settings',
+            'manage_options',
+            'm_media_login',
+            [
                 $this,
                 'options_do_page',
-            ]);
+            ]
+        );
     }
 
     /**
@@ -58,11 +70,8 @@ class WPOSSO_Admin
      */
     public function options_do_page()
     {
-
         $options = get_option($this->option_name);
-        $mmedia_user = new M_WPOSSO_User();
-
-        ?>
+        $mmedia_user = new M_WPOSSO_User(); ?>
 
         <div class="wrap">
 		    <div class="align-center-mmedia" style="text-align: center;padding-top:15px;">
@@ -130,10 +139,10 @@ class WPOSSO_Admin
 			<p>You're all done - there's nothing to do here - just remember to keep this plugin activated! If you want, you can read the M Media plugin guide on our Help Center.</p>
 			<a class="button" href="https://blog.mmediagroup.fr/post/log-in-with-m-media-wordpress-plugin/?utm_source=wordpress&utm_medium=plugin&utm_campaign=<?php echo get_site_url(); ?>&utm_content=tab_login_with_mmedia">Read the plugin guide</a>
 		    </div>
-		<?php }?>
+		<?php } ?>
 	 	</div>
 		<?php
-}
+    }
 
     /**
      * [options_do_page description].
@@ -142,12 +151,9 @@ class WPOSSO_Admin
      */
     public function options_do_notifications_page()
     {
-
         $options = get_option($this->option_name);
         $mmedia_user = new M_WPOSSO_User();
-        $notifications = $mmedia_user->get_user_notifications();
-
-        ?>
+        $notifications = $mmedia_user->get_user_notifications(); ?>
 
         <div class="wrap">
 		    <div class="align-center-mmedia" style="text-align: center;padding-top:15px;">
@@ -163,10 +169,13 @@ class WPOSSO_Admin
             	<h3><?php echo $notification->data->title; ?></h3>
 				 <p><?php echo $notification->data->message; ?></p>
 		    </div>
-		    <?php }}echo $mmedia_user->user->name ?? "<div class='card'>You are not currently logged in via M Media. Log in with M Media to get access to your notifications.</div>";?>
+		    <?php
+            }
+        }
+        echo $mmedia_user->user->name ?? "<div class='card'>You are not currently logged in via M Media. Log in with M Media to get access to your notifications.</div>"; ?>
 	 	</div>
 		<?php
-}
+    }
 
     /**
      * Settings Validation.
@@ -183,7 +192,6 @@ class WPOSSO_Admin
 
         return $input;
     }
-
 }
 
 WPOSSO_Admin::init();
