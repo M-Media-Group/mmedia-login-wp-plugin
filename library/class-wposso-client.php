@@ -10,20 +10,16 @@ defined('ABSPATH') or die('No script kiddies please!');
 class WPOSSO_Client
 {
     /** Version */
-    public $version = '1.4.5';
+    public $version = '1.2.0';
 
     /** Server Instance */
     public static $_instance = null;
 
     /** Default Settings */
     protected $defualt_settings = [
-        'client_id'             => '',
-        'client_secret'         => '',
-        'server_url'            => 'https://mmediagroup.fr/oauth/',
-        'server_oauth_trigger'  => 'oauth',
-        'server_auth_endpoint'  => 'authorize',
-        'server_token_endpont'  => 'token',
-        'server_user_endpoint'  => 'user',
+        'client_id' => '',
+        'client_secret' => '',
+        'server_url' => 'https://mmediagroup.fr/oauth/',
         'redirect_to_dashboard' => 1,
     ];
 
@@ -53,9 +49,10 @@ class WPOSSO_Client
      */
     public static function includes()
     {
-        require_once WPOSSO_FILE.'/includes/functions.php';
-        require_once WPOSSO_FILE.'/includes/admin-options.php';
-        require_once WPOSSO_FILE.'/includes/rewrites.php';
+        require_once WPOSSO_FILE . '/includes/user-class.php';
+        require_once WPOSSO_FILE . '/includes/functions.php';
+        require_once WPOSSO_FILE . '/includes/admin-options.php';
+        require_once WPOSSO_FILE . '/includes/rewrites.php';
     }
 
     /**
@@ -67,7 +64,7 @@ class WPOSSO_Client
         // Require parent plugin
         if (!class_exists('M_Media') and current_user_can('activate_plugins')) {
             // Stop activation redirect and show error
-            wp_die('This plugin requires the M Media to be installed and active. <br><a href="'.admin_url('plugins.php').'">&laquo; Return to Plugins</a>');
+            wp_die('This plugin requires the M Media to be installed and active. <br><a href="' . admin_url('plugins.php') . '">&laquo; Return to Plugins</a>');
         }
 
         // Set defaults
@@ -88,7 +85,7 @@ class WPOSSO_Client
             deactivate_plugins(plugin_basename(__FILE__));
             wp_die('"M Media" is a required dependant plugin for "Log in with M Media" to work.');
         }
-        require_once WPOSSO_FILE.'/includes/updater.php';
+        require_once WPOSSO_FILE . '/includes/updater.php';
     }
 
     /**

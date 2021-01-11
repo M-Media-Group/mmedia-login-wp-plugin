@@ -16,6 +16,10 @@ if (is_user_logged_in()) {
 $options = get_option('wposso_options');
 $user_redirect = wpssoc_get_user_redirect_url();
 
+if (!isset($options['server_url'])) {
+    wp_die("There's an issue with the server URL");
+}
+
 // Check for custom redirect
 if (!empty($_GET['redirect_uri'])) {
     $user_redirect = $_GET['redirect_uri'];
@@ -26,16 +30,16 @@ if (!isset($_GET['code'])) {
     $params = [
         //'oauth'         => 'authorize',
         'response_type' => 'code',
-        'client_id'     => $options['client_id'],
+        'client_id' => $options['client_id'],
         //'client_secret' => $options['client_secret'],
-        'redirect_uri'  => site_url('?auth=sso'),
-        'state'         => $user_redirect,
-        'scope'         => '',
+        'redirect_uri' => site_url('?auth=sso'),
+        'state' => $user_redirect,
+        'scope' => '',
         //'allow_registration' => $options['allow_registration'],
     ];
     $params = http_build_query($params);
 
-    wp_redirect('https://mmediagroup.fr/oauth/'.'authorize?'.$params);
+    wp_redirect($options['server_url'] . 'authorize?' . $params);
     exit;
 }
 
@@ -48,23 +52,23 @@ if (isset($_GET['code']) && !empty($_GET['code'])) {
     }
 
     $code = sanitize_text_field($_GET['code']);
-    $server_url = 'https://mmediagroup.fr/oauth/'.'token';
+    $server_url = $options['server_url'] . 'token';
     $response = wp_remote_post($server_url, [
-        'method'      => 'POST',
-        'timeout'     => 45,
+        'method' => 'POST',
+        'timeout' => 45,
         'redirection' => 5,
         'httpversion' => '1.0',
-        'blocking'    => true,
-        'headers'     => [],
-        'body'        => [
-            'grant_type'    => 'authorization_code',
-            'code'          => $code,
-            'client_id'     => $options['client_id'],
+        'blocking' => true,
+        'headers' => [],
+        'body' => [
+            'grant_type' => 'authorization_code',
+            'code' => $code,
+            'client_id' => $options['client_id'],
             'client_secret' => $options['client_secret'],
-            'redirect_uri'  => site_url('?auth=sso'),
+            'redirect_uri' => site_url('?auth=sso'),
         ],
-        'cookies'     => [],
-        'sslverify'   => false,
+        'cookies' => [],
+        'sslverify' => false,
     ]);
 
     if (is_wp_error($response)) {
@@ -77,23 +81,8 @@ if (isset($_GET['code']) && !empty($_GET['code'])) {
         wp_die($tokens->error_description);
     }
 
-    $server_url = 'https://mmediagroup.fr/api/user';
-    $response = wp_remote_get($server_url, [
-        'timeout'     => 45,
-        'redirection' => 5,
-        'httpversion' => '1.0',
-        'blocking'    => true,
-        'headers'     => ['Authorization' => 'Bearer '.$tokens->access_token,
-            'Accept'                      => 'application/json', ],
-        'sslverify'   => false,
-    ]);
-
-    if (is_wp_error($response)) {
-        $error_message = $response->get_error_message();
-        echo "Something went wrong: $error_message";
-    }
-
-    $user_info = json_decode($response['body']);
+    $mmedia_user = new M_WPOSSO_User($tokens->access_token);
+    $user_info = $mmedia_user->user;
 
     //echo '<pre>'.print_r($user_info->email, true).'</pre>';
     //exit();
@@ -104,13 +93,13 @@ if (isset($_GET['code']) && !empty($_GET['code'])) {
         if ($options['allow_registration']) {
             // Does not have an account... Register and then log the user in
             $random_password = wp_generate_password($length = 12, $include_standard_special_chars = false);
-            $user_id         = wp_insert_user([
-    'user_pass'             => $random_password,   //(string) The plain-text user password.
-    'user_login'            => $user_info->email,   //(string) The user's login username.
-    'user_email'            => $user_info->email,   //(string) The user email address.
-                'show_admin_bar_front'  => 'false',   //(string|bool) Whether to display the Admin Bar for the user on the site's front end. Default true.
-    'role'                  => 'subscriber',   //(string) User's role.
-        ]);
+            $user_id = wp_insert_user([
+                'user_pass' => $random_password, //(string) The plain-text user password.
+                'user_login' => $user_info->email, //(string) The user's login username.
+                'user_email' => $user_info->email, //(string) The user email address.
+                'show_admin_bar_front' => 'false', //(string|bool) Whether to display the Admin Bar for the user on the site's front end. Default true.
+                'role' => 'subscriber', //(string) User's role.
+            ]);
 
             if (isset($user_info->name)) {
                 update_user_meta($user_id, 'first_name', $user_info->name);
@@ -138,7 +127,6 @@ if (isset($_GET['code']) && !empty($_GET['code'])) {
     } else {
 
         // Already Registered... Log the User In
-        $random_password = __('User already exists.  Password inherited.');
         $user = get_user_by('email', $user_info->email);
 
         if (isset($user_info->name)) {
@@ -161,6 +149,8 @@ if (isset($_GET['code']) && !empty($_GET['code'])) {
         wp_clear_auth_cookie();
         wp_set_current_user($user->ID);
         wp_set_auth_cookie($user->ID);
+        // $_SESSION['m_media_access_token'] = $tokens->access_token;
+        setcookie('m_media_access_token', $tokens->access_token, 0, '/', '', false, true); // expire with session
 
         if (is_user_logged_in()) {
             wp_safe_redirect($user_redirect);
