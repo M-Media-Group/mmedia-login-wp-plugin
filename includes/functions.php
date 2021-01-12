@@ -45,9 +45,9 @@ class M_Media_login
         return self::$instance;
     }
 
-/**
- * Auto SSO for users that are not logged in.
- */
+    /**
+     * Auto SSO for users that are not logged in.
+     */
     public function auto_sso_init($template)
     {
 
@@ -78,19 +78,19 @@ class M_Media_login
         }
     }
 
-/**
- * Main Functions.
- *
- * @author Justin Greer <justin@justin-greer.com>
- */
+    /**
+     * Main Functions.
+     *
+     * @author Justin Greer <justin@justin-greer.com>
+     */
 
-/**
- * public function wp_sso_login_form_button.
- *
- * Add login button for SSO on the login form.
- *
- * @link https://codex.wordpress.org/Plugin_API/Action_Reference/login_form
- */
+    /**
+     * public function wp_sso_login_form_button.
+     *
+     * Add login button for SSO on the login form.
+     *
+     * @link https://codex.wordpress.org/Plugin_API/Action_Reference/login_form
+     */
     public function wp_sso_login_form_button()
     {
         ?>
@@ -98,15 +98,15 @@ class M_Media_login
        href="<?php echo site_url('?auth=sso'); ?>">Log in with M Media</a>
     <div style="clear:both;"></div>
 	<?php
-}
+    }
 
-/**
- * Login Button Shortcode.
- *
- * @param [type] $atts [description]
- *
- * @return [type] [description]
- */
+    /**
+     * Login Button Shortcode.
+     *
+     * @param [type] $atts [description]
+     *
+     * @return [type] [description]
+     */
     public function single_sign_on_login_button_shortcode($atts)
     {
         $a = shortcode_atts([
@@ -120,9 +120,9 @@ class M_Media_login
         return '<a class="' . $a['class'] . '" href="' . site_url('?auth=sso') . '" title="' . $a['title'] . '" target="' . $a['target'] . '">' . $a['text'] . '</a>';
     }
 
-/**
- * Get user login redirect. Just in case the user wants to redirect the user to a new url.
- */
+    /**
+     * Get user login redirect. Just in case the user wants to redirect the user to a new url.
+     */
     public static function wpssoc_get_user_redirect_url()
     {
         $options = get_option('wposso_options');
@@ -138,18 +138,16 @@ class M_Media_login
         // session_destroy();
     }
 
-/**
- * Add a message box to the media uploader to
- * clearly show when new uploads are protected
- *
- * @since 0.2
- */
+    /**
+     * Add a message box to the media uploader to
+     * clearly show when new uploads are protected
+     *
+     * @since 0.2
+     */
     public function mmedia_get_files()
     {
         $files = $this->mmedia_user->get_user_files();
-        $options = get_option('wposso_options');
-
-        ?>
+        $options = get_option('wposso_options'); ?>
     <div>
     <br>
     <p>or</p>
@@ -157,8 +155,7 @@ class M_Media_login
     <?php
 $i = 0;
         foreach ($files as $file) {
-            // mmedia_insert_attachment_from_url($file->url);
-            ?>
+            // mmedia_insert_attachment_from_url($file->url); ?>
 
 <div class="card align-center-mmedia">
     <img src="<?php echo $file->url; ?>" height="145">
@@ -169,9 +166,7 @@ $i = 0;
   <?php if (++$i == 25) {
                 break;
             }
-
-        }
-        ?>
+        } ?>
     <a class="button button-mmedia" target="_BLANK" href="<?php echo str_replace('/oauth/', '/files/create', $options['server_url']); ?>"><?php _e('Upload more files to M Media')?></a>
 </div>
 
@@ -221,7 +216,7 @@ $i = 0;
 });
     </script>
   <?php
-}
+    }
 
     public function get_attachment_exists_by_guid($guid)
     {
@@ -235,16 +230,15 @@ $i = 0;
         );
     }
 
-/**
- * Insert an attachment from an URL address.
- *
- * @param  String $url
- * @param  Int    $parent_post_id
- * @return Int    Attachment ID
- */
+    /**
+     * Insert an attachment from an URL address.
+     *
+     * @param  String $url
+     * @param  Int    $parent_post_id
+     * @return Int    Attachment ID
+     */
     public function mmedia_insert_attachment_from_url($file = null)
     {
-
         if (!$file) {
             $file = new stdClass();
             $file->url = $_POST['file-url'];
