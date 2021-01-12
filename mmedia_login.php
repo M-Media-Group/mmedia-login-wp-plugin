@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Log in with M Media
  * Plugin URI: https://mmediagroup.fr
- * Version: 1.2.0
+ * Version: 1.2.1
  * Description: Provides Simple Single Sign On integration with M Media, as well as features for users that are logged in, including image uploading and notifications from M Media.
  * Author: M Media
  * Author URI: https://mmediagroup.fr
@@ -26,7 +26,7 @@ if (!defined('WPOSSO_FILE')) {
 
 const mmedia_plugin_login_url = __FILE__;
 
-// Require the main plugin clas
+// Require the main plugin class
 require_once WPOSSO_FILE . '/library/class-wposso-client.php';
 
 add_action('admin_init', [new WPOSSO_Client(), 'plugin_init']);

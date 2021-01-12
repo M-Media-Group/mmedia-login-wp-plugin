@@ -14,7 +14,7 @@ if (is_user_logged_in()) {
 
 // Grab a copy of the options and set the redirect location.
 $options = get_option('wposso_options');
-$user_redirect = wpssoc_get_user_redirect_url();
+$user_redirect = M_Media_login::wpssoc_get_user_redirect_url();
 
 if (!isset($options['server_url'])) {
     wp_die("There's an issue with the server URL");
@@ -81,9 +81,8 @@ if (isset($_GET['code']) && !empty($_GET['code'])) {
         wp_die($tokens->error_description);
     }
 
-    $mmedia_user = new M_WPOSSO_User($tokens->access_token);
-    $user_info = $mmedia_user->user;
-
+    $this->mmedia_user->set_user_token($tokens->access_token);
+    $user_info = $this->mmedia_user->get_user_info();
     //echo '<pre>'.print_r($user_info->email, true).'</pre>';
     //exit();
 

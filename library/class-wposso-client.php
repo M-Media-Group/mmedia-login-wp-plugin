@@ -10,10 +10,10 @@ defined('ABSPATH') or die('No script kiddies please!');
 class WPOSSO_Client
 {
     /** Version */
-    public $version = '1.2.0';
+    public $version = '1.2.1';
 
     /** Server Instance */
-    public static $_instance = null;
+    // public static $_instance = null;
 
     /** Default Settings */
     protected $defualt_settings = [
@@ -105,7 +105,7 @@ class WPOSSO_Client
 
 function _WPOSSO()
 {
-    return WPOSSO_Client::instance();
+    return new WPOSSO_Client();
 }
 
 $GLOBAL['WPOSSO'] = _WPOSSO();
