@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Log in with M Media
  * Plugin URI: https://mmediagroup.fr
- * Version: 1.2.1
+ * Version: 1.2.2
  * Description: Provides Simple Single Sign On integration with M Media, as well as features for users that are logged in, including image uploading and notifications from M Media.
  * Author: M Media
  * Author URI: https://mmediagroup.fr
