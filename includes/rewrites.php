@@ -11,11 +11,11 @@ defined('ABSPATH') or die('No script kiddies please!');
  */
 class WPOSSO_Rewrites
 {
-    private $mmedia_user;
+    private $m_media_user;
 
-    public function __construct(M_WPOSSO_User $mmedia_user)
+    public function __construct(M_WPOSSO_User $m_media_user)
     {
-        $this->mmedia_user = $mmedia_user;
+        $this->m_media_user = $m_media_user;
     }
 
     public function create_rewrite_rules($rules)
@@ -50,7 +50,7 @@ class WPOSSO_Rewrites
     }
 }
 
-$WPOSSO_Rewrites = new WPOSSO_Rewrites($mmedia_user);
+$WPOSSO_Rewrites = new WPOSSO_Rewrites($m_media_user);
 add_filter('rewrite_rules_array', [$WPOSSO_Rewrites, 'create_rewrite_rules']);
 add_filter('query_vars', [$WPOSSO_Rewrites, 'add_query_vars']);
 add_filter('wp_loaded', [$WPOSSO_Rewrites, 'flush_rewrite_rules']);

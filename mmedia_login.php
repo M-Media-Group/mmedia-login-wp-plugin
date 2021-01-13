@@ -24,7 +24,7 @@ if (!defined('WPOSSO_FILE')) {
     define('WPOSSO_FILE', plugin_dir_path(__FILE__));
 }
 
-const mmedia_plugin_login_url = __FILE__;
+const m_media_plugin_login_url = __FILE__;
 
 // Require the main plugin class
 require_once WPOSSO_FILE . '/library/class-wposso-client.php';

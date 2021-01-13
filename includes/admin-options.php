@@ -10,13 +10,13 @@ defined('ABSPATH') or die('No script kiddies please!');
 class WPOSSO_Admin
 {
     protected $option_name = 'wposso_options';
-    private $mmedia_user;
+    private $m_media_user;
 
-    public function __construct(M_WPOSSO_User $mmedia_user)
+    public function __construct(M_WPOSSO_User $m_media_user)
     {
         // add_action('admin_init', [new self(), 'admin_init']);
         // add_action('admin_menu', [new self(), 'add_page'], 11);
-        $this->mmedia_user = $mmedia_user;
+        $this->m_media_user = $m_media_user;
     }
 
     /**
@@ -39,29 +39,17 @@ class WPOSSO_Admin
         //             'options_do_page'
         //         ) );
 
-        add_submenu_page(
-            'mmedia_main_menu',
-            'Notifications',
-            'Notifications',
-            'publish_pages',
-            'm_media_notifications',
-            [
+        add_submenu_page('m_media_main_menu', 'Notifications',
+            'Notifications', 'publish_pages', 'm_media_notifications', [
                 $this,
                 'options_do_notifications_page',
-            ]
-        );
+            ]);
 
-        add_submenu_page(
-            'mmedia_main_menu',
-            'Log in settings',
-            'Log in settings',
-            'manage_options',
-            'm_media_login',
-            [
+        add_submenu_page('m_media_main_menu', 'Log in settings',
+            'Log in settings', 'manage_options', 'm_media_login', [
                 $this,
                 'options_do_page',
-            ]
-        );
+            ]);
     }
 
     /**
@@ -71,15 +59,18 @@ class WPOSSO_Admin
      */
     public function options_do_page()
     {
+
         $options = get_option($this->option_name);
-        // $mmedia_user = new M_WPOSSO_User(); ?>
+        // $m_media_user = new M_WPOSSO_User();
+
+        ?>
 
         <div class="wrap">
 		    <div class="align-center-mmedia" style="text-align: center;padding-top:15px;">
 				<img src="<?php echo plugins_url('mmedia/images/m.svg'); ?>" height="75">
 				<p style="font-weight: 500;">We make websites and handle your marketing.</p>
 		    </div>
-		    <?php if (!$this->mmedia_user->is_logged_in_as_mmedia()) {?>
+		    <?php if (!$this->m_media_user->is_logged_in_as_mmedia()) {?>
 		    <div class="card">
 			<h3>Step 1</h3>
 			<p>Obtain a Client ID and Secret from M Media.</p>
@@ -140,10 +131,10 @@ class WPOSSO_Admin
 			<p>You're all done - there's nothing to do here - just remember to keep this plugin activated! If you want, you can read the M Media plugin guide on our Help Center.</p>
 			<a class="button" href="https://blog.mmediagroup.fr/post/log-in-with-m-media-wordpress-plugin/?utm_source=wordpress&utm_medium=plugin&utm_campaign=<?php echo get_site_url(); ?>&utm_content=tab_login_with_mmedia">Read the plugin guide</a>
 		    </div>
-		<?php } ?>
+		<?php }?>
 	 	</div>
 		<?php
-    }
+}
 
     /**
      * [options_do_page description].
@@ -152,16 +143,19 @@ class WPOSSO_Admin
      */
     public function options_do_notifications_page()
     {
+
         $options = get_option($this->option_name);
-        // $mmedia_user = new M_WPOSSO_User();
-        $notifications = $this->mmedia_user->get_user_notifications(); ?>
+        // $m_media_user = new M_WPOSSO_User();
+        $notifications = $this->m_media_user->get_user_notifications();
+
+        ?>
 
         <div class="wrap">
 		    <div class="align-center-mmedia" style="text-align: center;padding-top:15px;">
 				<img src="<?php echo plugins_url('mmedia/images/m.svg'); ?>" height="75">
 				<p style="font-weight: 500;">M Media notifications</p>
 		    </div>
-		    		    <?php if ($this->mmedia_user->is_logged_in_as_mmedia()) {
+		    		    <?php if ($this->m_media_user->is_logged_in_as_mmedia()) {
             ?>
 
 				<?php foreach ($notifications as $notification) {
@@ -171,13 +165,10 @@ class WPOSSO_Admin
                  <small><?php echo human_time_diff(strtotime($notification->created_at)); ?> ago</small>
 				 <p style="white-space: pre-wrap;"><?php echo $notification->data->message; ?></p>
 		    </div>
-		    <?php
-            }
-        }
-        echo $this->mmedia_user->user->name ?? "<div class='card'>You are not currently logged in via M Media. Log in with M Media to get access to your notifications.</div>"; ?>
+		    <?php }}echo $this->m_media_user->user->name ?? "<div class='card'>You are not currently logged in via M Media. Log in with M Media to get access to your notifications.</div>";?>
 	 	</div>
 		<?php
-    }
+}
 
     /**
      * Settings Validation.
@@ -194,9 +185,10 @@ class WPOSSO_Admin
 
         return $input;
     }
+
 }
 
-$WPOSSO_Admin = new WPOSSO_Admin($mmedia_user);
+$WPOSSO_Admin = new WPOSSO_Admin($m_media_user);
 
 add_action('admin_init', [$WPOSSO_Admin, 'admin_init']);
 add_action('admin_menu', [$WPOSSO_Admin, 'add_page'], 11);

@@ -165,6 +165,13 @@ class M_WPOSSO_User
         }
         return $this->files;
     }
+    public function get_user_file($file_id)
+    {
+        $files = $this->get_user_files();
+        $i = array_search($file_id, array_column($files, 'id'));
+        $element = ($i !== false ? $files[$i] : null);
+        return $element;
+    }
 
     public function get_user_notifications()
     {
@@ -198,4 +205,4 @@ class M_WPOSSO_User
     }
 }
 
-$mmedia_user = new M_WPOSSO_User();
+$m_media_user = new M_WPOSSO_User();

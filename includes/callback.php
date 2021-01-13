@@ -81,8 +81,8 @@ if (isset($_GET['code']) && !empty($_GET['code'])) {
         wp_die($tokens->error_description);
     }
 
-    $this->mmedia_user->set_user_token($tokens->access_token);
-    $user_info = $this->mmedia_user->get_user_info();
+    $this->m_media_user->set_user_token($tokens->access_token);
+    $user_info = $this->m_media_user->get_user_info();
     //echo '<pre>'.print_r($user_info->email, true).'</pre>';
     //exit();
 
