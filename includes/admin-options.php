@@ -32,19 +32,29 @@ class WPOSSO_Admin
      */
     public function add_page()
     {
-
-        add_submenu_page('m_media_main_menu', 'Notifications',
+        add_submenu_page(
+            'm_media_main_menu',
+            'Notifications',
             $this->m_media_user->get_user_unread_notification_count() ? sprintf('Notifications <span class="awaiting-mod">%d</span>', $this->m_media_user->get_user_unread_notification_count()) : 'Notifications',
-            'publish_pages', 'm_media_notifications', [
+            'publish_pages',
+            'm_media_notifications',
+            [
                 $this,
                 'options_do_notifications_page',
-            ]);
+            ]
+        );
 
-        add_submenu_page('m_media_main_menu', 'Log in settings',
-            'Log in settings', 'manage_options', 'm_media_login', [
+        add_submenu_page(
+            'm_media_main_menu',
+            'Log in settings',
+            'Log in settings',
+            'manage_options',
+            'm_media_login',
+            [
                 $this,
                 'options_do_page',
-            ]);
+            ]
+        );
     }
 
     /**
@@ -54,11 +64,8 @@ class WPOSSO_Admin
      */
     public function options_do_page()
     {
-
         $options = get_option($this->option_name);
-        // $m_media_user = new M_WPOSSO_User();
-
-        ?>
+        // $m_media_user = new M_WPOSSO_User(); ?>
 
         <div class="wrap">
 		    <div class="align-center-mmedia" style="text-align: center;padding-top:15px;">
@@ -126,10 +133,10 @@ class WPOSSO_Admin
 			<p>You're all done - there's nothing to do here - just remember to keep this plugin activated! If you want, you can read the M Media plugin guide on our Help Center.</p>
 			<a class="button" href="https://blog.mmediagroup.fr/post/log-in-with-m-media-wordpress-plugin/?utm_source=wordpress&utm_medium=plugin&utm_campaign=<?php echo get_site_url(); ?>&utm_content=tab_login_with_mmedia">Read the plugin guide</a>
 		    </div>
-		<?php }?>
+		<?php } ?>
 	 	</div>
 		<?php
-}
+    }
 
     /**
      * [options_do_page description].
@@ -138,11 +145,8 @@ class WPOSSO_Admin
      */
     public function options_do_notifications_page()
     {
-
         $options = get_option($this->option_name);
-        // $m_media_user = new M_WPOSSO_User();
-
-        ?>
+        // $m_media_user = new M_WPOSSO_User(); ?>
 
         <div class="wrap">
 		    <div class="align-center-mmedia" style="text-align: center;padding-top:15px;">
@@ -151,8 +155,7 @@ class WPOSSO_Admin
 		    </div>
 		    		    <?php if ($this->m_media_user->is_logged_in_as_mmedia()) {
             if ($this->m_media_user->get_user_unread_notification_count()) {
-                $notifications = $this->m_media_user->get_user_unread_notifications();
-                ?>
+                $notifications = $this->m_media_user->get_user_unread_notifications(); ?>
 
 				<?php foreach ($notifications as $notification) {
                     ?>
@@ -161,16 +164,18 @@ class WPOSSO_Admin
                  <small><?php echo human_time_diff(strtotime($notification->created_at)); ?> ago</small>
 				 <p style="white-space: pre-wrap;"><?php echo $notification->data->message; ?></p>
 		    </div>
-		    <?php }echo "<div style='text-align:center;'><a class='button' href='https://mmediagroup.fr/notifications'>Mark notifications as read on M Media</a></div>";
+		    <?php
+                }
+                echo "<div style='text-align:center;'><a class='button' href='https://mmediagroup.fr/notifications'>Mark notifications as read on M Media</a></div>";
             } else {
                 echo "<div class='card'><h3>You've caught up with all your notifications!</h3><a class='button' href='https://mmediagroup.fr/notifications' target='_BLANK'>See past notifications on M Media</a></div>";
             }
         } else {
             echo "<div class='card'>You are not currently logged in via M Media. Log in with M Media to get access to your notifications.</div>";
-        }?>
+        } ?>
 	 	</div>
 		<?php
-}
+    }
 
     /**
      * Settings Validation.
@@ -187,7 +192,6 @@ class WPOSSO_Admin
 
         return $input;
     }
-
 }
 
 $WPOSSO_Admin = new WPOSSO_Admin($m_media_user);

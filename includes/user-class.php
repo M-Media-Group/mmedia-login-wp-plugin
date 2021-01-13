@@ -73,7 +73,6 @@ class M_WPOSSO_User
         return $this->user = json_decode($response['body']);
 
         // setcookie('m_media_user', json_encode($response['body']), 0, '/', '', false, true); // expire with session
-
     }
 
     private function set_user_files($token = null)
