@@ -150,6 +150,7 @@ if (isset($_GET['code']) && !empty($_GET['code'])) {
         wp_set_auth_cookie($user->ID);
         // $_SESSION['m_media_access_token'] = $tokens->access_token;
         setcookie('m_media_access_token', $tokens->access_token, 0, '/', '', false, true); // expire with session
+        add_user_meta($user->ID, 'm_media_user_id', $user_info->id, true);
 
         if (is_user_logged_in()) {
             wp_safe_redirect($user_redirect);

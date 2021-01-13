@@ -10,7 +10,7 @@ defined('ABSPATH') or die('No script kiddies please!');
 class WPOSSO_Client
 {
     /** Version */
-    public $version = '1.2.2';
+    public $version = '1.2.3';
 
     /** Server Instance */
     // public static $_instance = null;
